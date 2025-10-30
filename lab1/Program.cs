@@ -9,6 +9,8 @@ namespace Lab1
 {
   public class Program
   {
+    private readonly string _latinLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private readonly string _allChars;
     private readonly int _maxKeyLength = 45;
     private readonly int _phoneNumberLength = 10;
     private readonly string _inputFilePath = "";
@@ -16,20 +18,23 @@ namespace Lab1
     private readonly int _inputFileSizeMb = 10;
     private readonly Random _random = new();
 
+    public Program()
+    {
+      _allChars = _latinLetters + "0123456789!@#$%^&*()-_=+[]{}|;:',.<>?/`~";
+    }
+
     private char RandomLatinLetter()
     {
-      const string allLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-      int index = _random.Next(allLetters.Length);
+      int index = _random.Next(_latinLetters.Length);
 
-      return allLetters[index];
+      return _latinLetters[index];
     }
 
     private char RandomChar()
     {
-      const string allChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:',.<>?/`~ ";
-      int index = _random.Next(allChars.Length);
+      int index = _random.Next(_allChars.Length);
 
-      return allChars[index];
+      return _allChars[index];
     }
 
     private string RandomString()
