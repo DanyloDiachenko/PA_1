@@ -1,17 +1,17 @@
+using System.Text;
+
 namespace Lab1
 {
-  public class Generators
+  public class Generators(
+   int fileSizeMb
+  )
   {
-    private readonly string _latinLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    private readonly string _allChars;
+    private static readonly string _latinLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static readonly string _allChars = _latinLetters + "0123456789!@#$%^&*()-_=+[]{}|;:',.<>?/`~";
     private readonly int _maxKeyLength = 45;
     private readonly int _phoneNumberLength = 10;
+    private readonly int _fileSizeMb = fileSizeMb;
     private readonly Random _random = new();
-
-    public Generators()
-    {
-      _allChars = _latinLetters + "0123456789!@#$%^&*()-_=+[]{}|;:',.<>?/`~";
-    }
 
     private char RandomLatinLetter()
     {
@@ -60,9 +60,31 @@ namespace Lab1
       return new string(chars);
     }
 
-    public string RandomFormattedString()
+    private string RandomFormattedString()
     {
       return $"{RandomLatinLetter()}-{RandomString()}-{RandomPhoneNumber()}";
+    }
+
+    public void GenerateInputFile(string filePath)
+    {
+      {
+        Console.WriteLine($"--- 1. Generation File {_fileSizeMb} ({_fileSizeMb} Mb) ---");
+        long targetBytes = _fileSizeMb * 1024 * 1024;
+
+        int stringLength = RandomFormattedString().Length;
+        int bytesPerLine = stringLength + Environment.NewLine.Length;
+        long lineCount = targetBytes / bytesPerLine;
+
+        using (StreamWriter sw = new(filePath, false, Encoding.UTF8))
+        {
+          for (long i = 0; i < lineCount; i++)
+          {
+            sw.WriteLine(RandomFormattedString());
+          }
+        }
+        Console.WriteLine($"File Generated, {lineCount:N0} lines.");
+      }
+
     }
   }
 }

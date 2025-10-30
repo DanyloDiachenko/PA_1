@@ -9,17 +9,16 @@ namespace Lab1
 {
   public class Program
   {
-    private readonly string _inputFilePath = "";
-    private readonly string _outputFilePath = "";
-    private readonly int _inputFileSizeMb = 10;
-    private readonly Generators _generators = new();
+    private readonly int _inputFileSizeMb = 100;
+    private readonly string _filePath = Path.Combine(Environment.CurrentDirectory, "sort_data.txt");
 
     public void Core()
     {
-      for (int i = 0; i < 5; i++)
-      {
-        Console.WriteLine(_generators.RandomFormattedString());
-      }
+      Generators generator = new(_inputFileSizeMb);
+      BaseNaturalSort sorter = new(_filePath);
+
+      generator.GenerateInputFile(_filePath);
+      sorter.Sort();
     }
 
     public static void Main()
