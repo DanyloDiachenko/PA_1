@@ -3,22 +3,23 @@
 // зростання
 // доступний об'єм - 300мб
 
-using System;
-
 namespace Lab1
 {
   public class Program
   {
-    private readonly int _inputFileSizeMb = 100;
+    private readonly int _inputFileSizeMb = 1024;
     private readonly string _filePath = Path.Combine(Environment.CurrentDirectory, "sort_data.txt");
 
     public void Core()
     {
       Generators generator = new(_inputFileSizeMb);
+
       BaseNaturalSort sorter = new(_filePath);
+      ModifiedNaturalSort modifiedSorter = new(_filePath);
+      AiNaturalSort aiSorter = new(_filePath);
 
       generator.GenerateInputFile(_filePath);
-      sorter.Sort();
+      modifiedSorter.Sort();
     }
 
     public static void Main()
