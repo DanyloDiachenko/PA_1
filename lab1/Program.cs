@@ -14,12 +14,43 @@ namespace Lab1
     public void Core()
     {
       Generators generator = new(_inputFileSizeMb);
-
-      BaseNaturalSort sorter = new(_filePath);
-      ModifiedNaturalSort modifiedSorter = new(_filePath, _memoryLimitMb);
+      AiNaturalSort aiSorter = new(_filePath);
+      BaseNaturalSort baseSorter = new(_filePath);
+      ModifiedNaturalSort modifiedSorter = new(_filePath);
 
       generator.GenerateInputFile(_filePath);
-      modifiedSorter.Sort();
+      aiSorter.Sort();
+      
+      /* Console.WriteLine("--- Verifying Sort Order ---");
+      bool isSorted = true;
+      using (var sr = new StreamReader(_filePath))
+      {
+          string? previousLine = null;
+          string? currentLine;
+          long lineNum = 0;
+          while ((currentLine = sr.ReadLine()) != null)
+          {
+              lineNum++;
+              if (previousLine != null && string.CompareOrdinal(currentLine, previousLine) < 0)
+              {
+                  Console.WriteLine($"Sort Error at line {lineNum}:");
+                  Console.WriteLine($"Previous: {previousLine}");
+                  Console.WriteLine($"Current:  {currentLine}");
+                  isSorted = false;
+                  break;
+              }
+              previousLine = currentLine;
+          }
+      }
+      
+      if (isSorted)
+      {
+          Console.WriteLine("Verification Passed: File is sorted.");
+      }
+      else
+      {
+          Console.WriteLine("Verification Failed.");
+      } */
    }
 
     public static void Main()
