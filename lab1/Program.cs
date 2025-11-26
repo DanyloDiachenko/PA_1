@@ -8,7 +8,7 @@ namespace Lab1
   public class Program
   {
     private readonly int _inputFileSizeMb = 1024;
-    private readonly int _maxLimitMb = 300;
+    private readonly int _memoryLimitMb = 300;
     private readonly string _filePath = Path.Combine(Environment.CurrentDirectory, "sort_data.txt");
 
     public void Core()
@@ -16,11 +16,11 @@ namespace Lab1
       Generators generator = new(_inputFileSizeMb);
 
       BaseNaturalSort sorter = new(_filePath);
-      /*  ModifiedNaturalSort modifiedSorter = new(_filePath, _maxLimitMb); */
+      ModifiedNaturalSort modifiedSorter = new(_filePath, _memoryLimitMb);
 
       generator.GenerateInputFile(_filePath);
-      /*  modifiedSorter.Sort(); */
-    }
+      modifiedSorter.Sort();
+   }
 
     public static void Main()
     {
