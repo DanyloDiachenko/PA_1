@@ -14,12 +14,12 @@ namespace Lab1
     public void Core()
     {
       Generators generator = new(_inputFileSizeMb);
-      AiNaturalSort aiSorter = new(_filePath);
       BaseNaturalSort baseSorter = new(_filePath);
-      ModifiedNaturalSort modifiedSorter = new(_filePath);
+      ModifiedNaturalSort modifiedSorter = new(_filePath, _memoryLimitMb);
+      AiNaturalSort aiSorter = new(_filePath);
 
       generator.GenerateInputFile(_filePath);
-      aiSorter.Sort();
+      modifiedSorter.Sort();
       
       /* Console.WriteLine("--- Verifying Sort Order ---");
       bool isSorted = true;
